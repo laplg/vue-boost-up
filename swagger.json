@@ -1,0 +1,2641 @@
+{
+  "components": {
+    "schemas": {
+      "AssignTask": {
+        "description": "AssignTask info",
+        "properties": {
+          "assignTo": {
+            "description": "The user id",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Comment": {
+        "description": "Comment",
+        "properties": {
+          "commentDate": {
+            "description": "The date where comment is added",
+            "type": "string"
+          },
+          "comments": {
+            "description": "Comment text.",
+            "type": "string"
+          },
+          "id": {
+            "description": "Comment's id",
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The id of project (comment of project)",
+            "type": "number"
+          },
+          "taskId": {
+            "description": "The task id (comment of task)",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "CommentCreation": {
+        "description": "Comment creation",
+        "properties": {
+          "comments": {
+            "description": "Comment text.",
+            "type": "string"
+          },
+          "projectId": {
+            "description": "The id of project (comment of project)",
+            "type": "number"
+          },
+          "taskId": {
+            "description": "The task id (comment of task)",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "description": "Error response",
+        "properties": {
+          "message": {
+            "description": "The error message.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Label": {
+        "description": "Label",
+        "properties": {
+          "id": {
+            "description": "The label's id",
+            "type": "number"
+          },
+          "title": {
+            "description": "The title",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LabelCreation": {
+        "description": "Label creation info",
+        "properties": {
+          "aboveLabel": {
+            "description": "The id of label whose order > created label",
+            "type": "number"
+          },
+          "belowLabel": {
+            "description": "The id of label whose order < created label",
+            "type": "number"
+          },
+          "title": {
+            "description": "The title",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Project": {
+        "description": "A project",
+        "properties": {
+          "archived": {
+            "description": "The project archive status",
+            "type": "boolean"
+          },
+          "createdAt": {
+            "description": "The created date",
+            "type": "string"
+          },
+          "defaultInbox": {
+            "description": "The default Inbox project",
+            "type": "boolean"
+          },
+          "groupBy": {
+            "description": "The column to group tasks",
+            "type": "string"
+          },
+          "id": {
+            "description": "The project id",
+            "type": "number"
+          },
+          "modifiedAt": {
+            "description": "The modified date",
+            "type": "string"
+          },
+          "name": {
+            "description": "The project name",
+            "type": "string"
+          },
+          "showCompleted": {
+            "description": "Show / hide completed tasks",
+            "type": "boolean"
+          },
+          "sortBy": {
+            "description": "The column to sort tasks",
+            "type": "string"
+          },
+          "sortDir": {
+            "description": "The sort direction, Asc or Desc",
+            "type": "string"
+          },
+          "taskCount": {
+            "description": "The total tasks in the project",
+            "type": "number"
+          },
+          "users": {
+            "description": "The project extra info",
+            "items": {
+              "$ref": "#/components/schemas/UserProject"
+            },
+            "type": "array"
+          },
+          "view": {
+            "description": "The view type (1 or 2)",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "ProjectCommentCreation": {
+        "description": "Project comment creation info",
+        "properties": {
+          "comments": {
+            "description": "Comment text.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProjectCreation": {
+        "description": "Project creation",
+        "properties": {
+          "aboveProject": {
+            "description": "The id of project that this project will be created with less order",
+            "type": "number"
+          },
+          "belowProject": {
+            "description": "THe id of project that this project will be created with greater order",
+            "type": "number"
+          },
+          "name": {
+            "description": "The project name",
+            "type": "string"
+          },
+          "view": {
+            "description": "The view type (1 or 2)",
+            "type": "number"
+          }
+        },
+        "required": ["name"],
+        "type": "object"
+      },
+      "ProjectModification": {
+        "description": "Project update info",
+        "properties": {
+          "groupBy": {
+            "description": "The column to group tasks",
+            "type": "string"
+          },
+          "name": {
+            "description": "The project name",
+            "type": "string"
+          },
+          "showCompleted": {
+            "description": "Show / hide completed tasks",
+            "type": "boolean"
+          },
+          "sortBy": {
+            "description": "The column to sort tasks",
+            "type": "string"
+          },
+          "sortDir": {
+            "description": "The sort direction, Asc or Desc",
+            "type": "string"
+          },
+          "view": {
+            "description": "The view type (1 or 2)",
+            "type": "number"
+          }
+        },
+        "required": ["name"],
+        "type": "object"
+      },
+      "SearchResult": {
+        "description": "Search result",
+        "properties": {
+          "comment": {
+            "$ref": "#/components/schemas/Comment",
+            "description": ": Matched comment info"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project",
+            "description": "Matched project info"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task",
+            "description": ": Matched task info"
+          }
+        },
+        "type": "object"
+      },
+      "Section": {
+        "description": "Section",
+        "properties": {
+          "id": {
+            "description": "The section id",
+            "type": "number"
+          },
+          "name": {
+            "description": "The section name",
+            "type": "string"
+          },
+          "open": {
+            "description": "The open or collapse state of the section",
+            "type": "boolean"
+          },
+          "order": {
+            "description": "The section order",
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The parent project's id",
+            "type": "number"
+          },
+          "tasks": {
+            "description": "The section's tasks",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "SectionCreation": {
+        "description": "Section creation info",
+        "properties": {
+          "aboveSection": {
+            "description": "Insert section above specified section",
+            "type": "number"
+          },
+          "belowSectin": {
+            "description": "Insert section below specified section",
+            "type": "number"
+          },
+          "name": {
+            "description": "The section name",
+            "type": "string"
+          },
+          "order": {
+            "description": "The section order",
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The parent project's id",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "ShareProjectRequest": {
+        "description": "Share project request",
+        "properties": {
+          "users": {
+            "description": "Lists of user ids",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["users"],
+        "type": "object"
+      },
+      "Task": {
+        "description": "Task attribute",
+        "properties": {
+          "assignTo": {
+            "description": "The user id",
+            "type": "string"
+          },
+          "completed": {
+            "description": "The task completion status",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "The task description",
+            "type": "string"
+          },
+          "dueDate": {
+            "description": "The task due date",
+            "type": "string"
+          },
+          "id": {
+            "description": "The task id",
+            "type": "number"
+          },
+          "labels": {
+            "description": "The labels of the task",
+            "items": {
+              "$ref": "#/components/schemas/Label"
+            },
+            "type": "array"
+          },
+          "parentTaskId": {
+            "description": "The id of parent task",
+            "type": "number"
+          },
+          "priority": {
+            "description": "The task priority (0-3)",
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The project id",
+            "type": "number"
+          },
+          "sectionId": {
+            "description": "The section id",
+            "type": "number"
+          },
+          "subTasks": {
+            "description": "The sub tasks.",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "taskOrder": {
+            "description": "The order of the task",
+            "type": "number"
+          },
+          "title": {
+            "description": "The title",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskCommentCreation": {
+        "description": "Task comment creation info",
+        "properties": {
+          "comments": {
+            "description": "Comment text.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskCreation": {
+        "description": "Task creation info",
+        "properties": {
+          "assignTo": {
+            "description": "The user id",
+            "type": "string"
+          },
+          "completed": {
+            "description": "The task completion status",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "The task description",
+            "type": "string"
+          },
+          "dueDate": {
+            "description": "The task due date",
+            "type": "string"
+          },
+          "labels": {
+            "description": "The labels of the task",
+            "items": {
+              "$ref": "#/components/schemas/Label"
+            },
+            "type": "array"
+          },
+          "parentTaskId": {
+            "description": "The id of parent task",
+            "type": "number"
+          },
+          "priority": {
+            "description": "The task priority (0-3)",
+            "type": "number"
+          },
+          "projectId": {
+            "description": "The project id",
+            "type": "number"
+          },
+          "sectionId": {
+            "description": "The section id",
+            "type": "number"
+          },
+          "taskOrder": {
+            "description": "The order of the task",
+            "type": "number"
+          },
+          "title": {
+            "description": "The title",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskDueDateRequest": {
+        "description": "Task due date request",
+        "properties": {
+          "dueDate": {
+            "description": "The date in string format",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TaskPriorityRequest": {
+        "description": "TaskPriority request info",
+        "properties": {
+          "priority": {
+            "description": "The task priority (0-3)",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "User": {
+        "description": "User info",
+        "properties": {
+          "displayName": {
+            "description": "The user display name",
+            "type": "string"
+          },
+          "email": {
+            "description": "The email",
+            "type": "string"
+          },
+          "id": {
+            "description": "The user id",
+            "type": "string"
+          },
+          "photo": {
+            "description": "The photo url",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "UserProject": {
+        "description": "User",
+        "properties": {
+          "id": {
+            "description": "The user id",
+            "type": "string"
+          },
+          "props": {
+            "$ref": "#/components/schemas/UserProjectProp",
+            "description": "The extra prop"
+          }
+        },
+        "type": "object"
+      },
+      "UserProjectProp": {
+        "description": "User project prop",
+        "properties": {
+          "favorite": {
+            "description": "The favorite status of the project",
+            "type": "boolean"
+          },
+          "order": {
+            "description": "The order of the project",
+            "type": "number"
+          },
+          "owner": {
+            "description": "True if user is the owner of the project",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "jwt": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "Documentation for Todo API",
+    "license": {
+      "name": "MIT",
+      "url": ""
+    },
+    "termsOfService": "",
+    "title": "Todo API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/labels": {
+      "get": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Label"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get all user labels",
+        "tags": []
+      },
+      "put": {
+        "deprecated": false,
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelCreation"
+              }
+            }
+          },
+          "description": "Label creation info",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Create a new label",
+        "tags": []
+      }
+    },
+    "/api/labels/search/{query}": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The search text",
+            "in": "path",
+            "name": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Label"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Swap labels order",
+        "tags": []
+      }
+    },
+    "/api/labels/{labelId}": {
+      "delete": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Success response"
+          }
+        },
+        "security": [],
+        "summary": "Delete the label",
+        "tags": []
+      },
+      "post": {
+        "deprecated": false,
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelCreation"
+              }
+            }
+          },
+          "description": "Update info (only the name)",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Rename label",
+        "tags": []
+      }
+    },
+    "/api/labels/{labelId}/swap/{targetLabelId}": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The source label id",
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target label id",
+            "in": "path",
+            "name": "targetLabelId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Swap labels order",
+        "tags": []
+      }
+    },
+    "/api/projects": {
+      "get": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get non-archived projects",
+        "tags": []
+      },
+      "put": {
+        "deprecated": false,
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreation"
+              }
+            }
+          },
+          "description": "project info",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "428": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Validation error response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Create a new project.",
+        "tags": []
+      }
+    },
+    "/api/projects/archived": {
+      "get": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get archived projects",
+        "tags": []
+      }
+    },
+    "/api/projects/{id}": {
+      "delete": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Delete a project",
+        "tags": []
+      },
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get project by id",
+        "tags": []
+      },
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectModification"
+              }
+            }
+          },
+          "description": "project info",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Update a project",
+        "tags": []
+      }
+    },
+    "/api/projects/{id}/comment": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get project comments",
+        "tags": []
+      },
+      "put": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCommentCreation"
+              }
+            }
+          },
+          "description": "comment information",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Add project comment",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/addFavorite": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Add project to favorite lists",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/duplicate": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Duplicate the project",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/leave": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Leave the project",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/removeFavorite": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Remove project off the favorite lists",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/sections": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Section"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get project's sections",
+        "tags": []
+      },
+      "put": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Section"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Create a new section",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/sections/{sectionId}": {
+      "delete": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The section id",
+            "in": "path",
+            "name": "sectionId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Delete a section",
+        "tags": []
+      },
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Section"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get a single section info",
+        "tags": []
+      },
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionCreation"
+              }
+            }
+          },
+          "description": "The update section info",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Section"
+                }
+              }
+            },
+            "description": "Success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Update section info",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/sections/{sectionId}/duplicate": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The section id",
+            "in": "path",
+            "name": "sectionId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Section"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Dupliate a section",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/sections/{sectionId}/swap/{targetSectionId}": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The source section id",
+            "in": "path",
+            "name": "sectionId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target section id",
+            "in": "path",
+            "name": "targetSectionId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Section"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Swap section order",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/swap/{targetProjectId}": {
+      "post": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The source project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target project id",
+            "in": "path",
+            "name": "targetProjectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Swap project's order",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/task": {
+      "get": {
+        "deprecated": false,
+        "description": "Return all tasks from a project.",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get project's tasks",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks": {
+      "put": {
+        "deprecated": false,
+        "description": "Create a new task",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreation"
+              }
+            }
+          },
+          "description": "The task info",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Create a new task",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}": {
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a task",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The projec tid",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Delete a task",
+        "tags": []
+      },
+      "get": {
+        "deprecated": false,
+        "description": "Return a single task info by id",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get task info",
+        "tags": []
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Update task",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The projec tid",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreation"
+              }
+            }
+          },
+          "description": "The udpate info",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Update task info",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/assignTask": {
+      "post": {
+        "deprecated": false,
+        "description": "Assign a task to a user",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignTask"
+              }
+            }
+          },
+          "description": "The assign task request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Assign task to a user",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/comment": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get task comments",
+        "tags": []
+      },
+      "put": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCommentCreation"
+              }
+            }
+          },
+          "description": "comment information",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Add task comment",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/complete": {
+      "post": {
+        "deprecated": false,
+        "description": "Mark the task as done",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Set task as done",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/duedate": {
+      "post": {
+        "deprecated": false,
+        "description": "Set the task due date",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDueDateRequest"
+              }
+            }
+          },
+          "description": "The due date request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Set the task due date",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/duplicate": {
+      "post": {
+        "deprecated": false,
+        "description": "Duplicate the task (and its sub-tasks)",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Duplicate the task",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/move/{targetProjectId}/{targetSectionId}": {
+      "post": {
+        "deprecated": false,
+        "description": "Move a task from a project to another one.",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The source project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The source task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target project id",
+            "in": "path",
+            "name": "targetProjectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target project id",
+            "in": "path",
+            "name": "targetSectionId",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Move task to other project",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/priority": {
+      "post": {
+        "deprecated": false,
+        "description": "Set the task priority",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPriorityRequest"
+              }
+            }
+          },
+          "description": "The task priority request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            },
+            "description": "bad request reponse"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Set the task priority",
+        "tags": []
+      }
+    },
+    "/api/projects/{projectId}/tasks/{taskId}/swapOrder/{targetTaskId}": {
+      "post": {
+        "deprecated": false,
+        "description": "Swap the order of 2 tasks",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The project id",
+            "in": "path",
+            "name": "projectId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The source task id",
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "deprecated": false,
+            "description": "The target task id",
+            "in": "path",
+            "name": "targetTaskId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad request response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Swap task order",
+        "tags": []
+      }
+    },
+    "/api/search/{query}": {
+      "get": {
+        "deprecated": false,
+        "description": "Return all matches result (task, project, comment)",
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The search query",
+            "in": "path",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SearchResult"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "search",
+        "tags": []
+      }
+    },
+    "/api/users/all": {
+      "get": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Return all users",
+        "tags": []
+      }
+    },
+    "/api/users/search/{query}": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The search text",
+            "in": "path",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Search user",
+        "tags": []
+      }
+    },
+    "/api/users/validate": {
+      "get": {
+        "deprecated": false,
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Success response"
+          },
+          "401": {
+            "description": "Invalid authentication"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Validate user authentication",
+        "tags": []
+      }
+    },
+    "/api/view/label/{labelId}": {
+      "get": {
+        "deprecated": false,
+        "parameters": [
+          {
+            "deprecated": false,
+            "description": "The label id",
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "Get all tasks tagged by label",
+        "tags": []
+      }
+    },
+    "/api/view/today": {
+      "get": {
+        "deprecated": false,
+        "description": "Return all tasks that have due date <= today",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "get Tasks overdue today",
+        "tags": []
+      }
+    },
+    "/api/view/upcomming": {
+      "get": {
+        "deprecated": false,
+        "description": "Return all upcomming tasks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "success response"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "summary": "get all upcoming tasks",
+        "tags": []
+      }
+    }
+  },
+  "security": [
+    {
+      "jwt": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "Local DEV",
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": []
+}
