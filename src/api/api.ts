@@ -446,7 +446,7 @@ export class HttpClient<SecurityDataType = unknown> {
     baseUrl,
     cancelToken,
     ...params
-  }: FullRequestParams): Promise<HttpResponse<T, E>> => {
+  }: FullRequestParams): Promise<T> => {
     const secureParams =
       ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
@@ -494,7 +494,7 @@ export class HttpClient<SecurityDataType = unknown> {
       }
 
       if (!response.ok) throw data
-      return data
+      return data.data
     })
   }
 }
@@ -974,12 +974,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @name ProjectsTaskDetail
      * @summary Get project's tasks
-     * @request GET:/api/projects/{projectId}/task
+     * @request GET:/api/projects/{projectId}/tasks
      * @secure
      */
     projectsTaskDetail: (projectId: number, params: RequestParams = {}) =>
       this.request<Task[], any>({
-        path: `/api/projects/${projectId}/task`,
+        path: `/api/projects/${projectId}/tasks`,
         method: 'GET',
         secure: true,
         format: 'json',
